@@ -74,3 +74,33 @@ function Convert(pRootOfTree)
     }
     return head;
 }
+
+// 23 题目描述
+// 输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+function Permutation(str)
+{
+    // write code here
+    if (str.length == 0) {
+        return str;
+    }
+    var map = {};
+    var arr = str.split('');
+    func(arr, 0, map);
+    return Object.keys(map).sort();
+}
+function func(arr, start, map) {
+    if (start == arr.length) {
+        map[arr.join('')] = 1;
+    } else {
+        for (var i=start;i<arr.length;i++) {
+            swap(arr, start, i);
+            func(arr, start+1, map);
+            swap(arr, start, i);
+        }
+    }
+}
+function swap(arr, i, j) {
+    var tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
+}
