@@ -104,7 +104,7 @@ function swap(arr, i, j) {
     arr[i] = arr[j];
     arr[j] = tmp;
 }
-// 题目描述
+// 24 题目描述
 // 输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
 function GetLeastNumbers_Solution(input, k)
 {
@@ -152,4 +152,79 @@ function pritation(input, left, right) {
     pritation(input, left, l-1);
     pritation(input, l+1, right);
     return l;
+}
+// 25 题目描述
+// 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
+function MoreThanHalfNum_Solution(numbers)
+{
+    // write code here
+    if(numbers.length < 1) {
+        return 0;
+    }
+    if (numbers.length == 1) {
+        return numbers[0];
+    }
+    var count = 1;
+    var number = numbers[0];
+    for (let i=1; i<numbers.length; i++) {
+        let val = numbers[i];
+        if (count == 0) {
+            number = val;
+            count = 1;
+        } else if (val == number) {
+            count++;
+        } else {
+            count--;
+        }
+    }
+    count = 0;
+    for (let i=0;i<numbers.length;i++) {
+        let val = numbers[i];
+        if (val == number) {
+            count++;
+        }
+    }
+    if (count > numbers.length/2) {
+        return number;
+    }
+    return 0;
+    /*var map = {};
+    for(let i = 0;i<numbers.length;i++) {
+        let val = numbers[i];
+        if (map[val]) {
+            map[val] += 1;
+            if (map[val] > numbers.length/2) {
+                return val;
+            }
+        } else {
+            map[val] = 1;
+        }
+    }
+    return 0;*/
+}
+
+// 26 题目描述
+// HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天测试组开完会后,他又发话了:在古老的一维模式识别中,常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。给一个数组，返回它的最大连续子序列的和，你会不会被他忽悠住？(子向量的长度至少是1)
+function FindGreatestSumOfSubArray(array)
+{
+    // write code here
+    if (array.length == 0) {
+        return 0;
+    }
+    if (array.length == 1) {
+        return array[0];
+    }
+    let sum = array[0];
+    let max = array[0];
+    for (let i=1; i<array.length; i++) {
+        if (sum <= 0) {
+            sum = array[i];
+        } else {
+            sum += array[i];
+        }
+        if (sum > max) {
+            max = sum;
+        }
+    }
+    return max;
 }
