@@ -104,3 +104,52 @@ function swap(arr, i, j) {
     arr[i] = arr[j];
     arr[j] = tmp;
 }
+// 题目描述
+// 输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
+function GetLeastNumbers_Solution(input, k)
+{
+    // write code here
+    debugger;
+    if (!input || k >= input) {
+        return input;
+    }
+    if (k <= 0) {
+        return [];
+    }
+    var last = input.length-1;
+    var i = pritation(input, 0, last);
+    while (i != k-1) {
+        if (i < k-1) {
+            i = pritation(input, i+1, last);
+        } else {
+            i = pritation(input, 0, i-1)
+        }
+    }
+    return input.slice(0, k);
+}
+function pritation(input, left, right) {
+    if (left >= right) {
+        return;
+    }
+    var l = left;
+    var r = right;
+    var flag = input[left];
+    while(l < r) {
+        while(l<r && input[r] >= flag) {
+            r--;
+        }
+        if (l < r) {
+            input[l] = input[r];
+        }
+        while(l<r && input[l] <= flag) {
+            l++;
+        }
+        if (l < r) {
+            input[r] = input[l];
+        }
+    }
+    input[l] = flag;
+    pritation(input, left, l-1);
+    pritation(input, l+1, right);
+    return l;
+}
